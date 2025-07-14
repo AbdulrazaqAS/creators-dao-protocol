@@ -10,7 +10,7 @@ import {GovernorVotesQuorumFractionUpgradeable} from "@openzeppelin/contracts-up
 import {IVotes} from "@openzeppelin/contracts/governance/utils/IVotes.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract DAOGovernor is
+contract DAOGovernorProxy is
     Initializable,
     GovernorUpgradeable,
     GovernorSettingsUpgradeable,

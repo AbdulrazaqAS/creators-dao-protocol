@@ -18,7 +18,7 @@ contract DAOToken is Initializable, ERC20Upgradeable, OwnableUpgradeable, ERC20P
     function initialize(address initialOwner, string memory name, string memory symbol) public initializer {
         __ERC20_init(name, symbol);
         __Ownable_init(initialOwner);
-        __ERC20Permit_init("MyToken");
+        __ERC20Permit_init(name);
         __ERC20Votes_init();
     }
 
