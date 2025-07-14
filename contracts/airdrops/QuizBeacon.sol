@@ -4,18 +4,18 @@ pragma solidity ^0.8.27;
 import "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol"
 import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
 
-contract DAOGovernorBeacon is UpgradeableBeacon {
-    uint256 public totalDaos;
+contract QuizBeacon is UpgradeableBeacon {
+    uint256 public totalQuizzes;
     
-    event DAOCreated(address indexed dao);
+    event QuizCreated(address indexed vault);
     
     constructor(address _impl) UpgradeableBeacon(_impl){}
     
-    function deployDAO(bytes memory data) external return (address) {
+    function deployVault(bytes memory data) external return (address) {
         BeaconProxy proxy = new BeaconProxy(address(this), data);
 
-        totalDaos++;
-        emit DAOCreated(proxy);
+        totalQuizzes++;
+        emit QuizCreated(proxy);
         
         return address(proxy);
     }
