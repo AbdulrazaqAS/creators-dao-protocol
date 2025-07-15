@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.27;
+pragma solidity ^0.8.26;
 
-import "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol"
+import "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol";
 import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
 
 contract DAOAssetsVaultBeacon is UpgradeableBeacon {
@@ -9,14 +9,14 @@ contract DAOAssetsVaultBeacon is UpgradeableBeacon {
     
     event VaultCreated(address indexed vault);
     
-    constructor(address _impl) UpgradeableBeacon(_impl){}
+    constructor(address _impl, address _owner) UpgradeableBeacon(_impl, _owner){}
     
-    function deployVault(bytes memory data) external return (address) {
+    function deployVault(bytes memory data) external returns (address) {
         BeaconProxy proxy = new BeaconProxy(address(this), data);
 
         totalVaults++;
-        emit VaultCreated(proxy);
+        emit VaultCreated(address(proxy));
         
         return address(proxy);
     }
-};
+}

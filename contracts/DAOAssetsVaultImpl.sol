@@ -73,7 +73,7 @@ contract IPAManager is Initializable, OwnableUpgradeable, ERC721Holder {
         uint256 _daoRoyaltyTokens,
         address _initialOwner
     ) external initializer {
-        __Ownable_init(_initialOwner)
+        __Ownable_init(_initialOwner);
         daoRoyaltyTokens = _daoRoyaltyTokens;
         emit DaoRoyaltyTokensChanged(_daoRoyaltyTokens);
     }
