@@ -10,6 +10,8 @@ import {GovernorVotesQuorumFractionUpgradeable} from "@openzeppelin/contracts-up
 import {IVotes} from "@openzeppelin/contracts/governance/utils/IVotes.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {DAOStorage} from "./DAOStorage.sol";
+import {IDAOStorage} from "./interfaces/IDAOStorage.sol";
+import {DAOStorageOps} from "./lib/DAOStorageOps.sol";
 
 contract DAOGovernorImpl is
     Initializable,
@@ -20,8 +22,7 @@ contract DAOGovernorImpl is
     GovernorVotesQuorumFractionUpgradeable,
     DAOStorage
 {
-    // Minimum participation threshold for non-proposal actions
-    uint256 public participationThreshold;
+    using DAOStorageOps for IDAOStorage;
     
     event ParticipationThresholdUpdated(uint256 newThreshold);
 
@@ -54,7 +55,7 @@ contract DAOGovernorImpl is
     function setParticipationThreshold(
         uint256 _participationThreshold
     ) external onlyGovernance {
-        participationThreshold = _participationThreshold;
+        IDAOStorage(address(this)).setUint256("participationThreshold", _participationThreshold);
         emit ParticipationThresholdUpdated(_participationThreshold);
     }
 
