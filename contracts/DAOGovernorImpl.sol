@@ -9,6 +9,7 @@ import {GovernorVotesUpgradeable} from "@openzeppelin/contracts-upgradeable/gove
 import {GovernorVotesQuorumFractionUpgradeable} from "@openzeppelin/contracts-upgradeable/governance/extensions/GovernorVotesQuorumFractionUpgradeable.sol";
 import {IVotes} from "@openzeppelin/contracts/governance/utils/IVotes.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {DAOStorage} from "./DAOStorage.sol";
 
 contract DAOGovernorImpl is
     Initializable,
@@ -16,7 +17,8 @@ contract DAOGovernorImpl is
     GovernorSettingsUpgradeable,
     GovernorCountingSimpleUpgradeable,
     GovernorVotesUpgradeable,
-    GovernorVotesQuorumFractionUpgradeable
+    GovernorVotesQuorumFractionUpgradeable,
+    DAOStorage
 {
     // Minimum participation threshold for non-proposal actions
     uint256 public participationThreshold;
@@ -30,7 +32,8 @@ contract DAOGovernorImpl is
 
     function initialize(
         address _token,
-        string memory name,
+        string calldata name,
+        address[] calldata storageWriters,
         uint48 initialVotingDelay,
         uint32 initialVotingPeriod,
         uint256 initialProposalThreshold,
@@ -45,6 +48,7 @@ contract DAOGovernorImpl is
         __GovernorCountingSimple_init();
         __GovernorVotes_init(IVotes(_token));
         __GovernorVotesQuorumFraction_init(quorumNumerator);
+        __DAOStorage_init(storageWriters);
     }
 
     function setParticipationThreshold(

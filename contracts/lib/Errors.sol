@@ -9,6 +9,6 @@ library Errors {
     /// @notice Caller not allowed for the operation
     error IDAOStorage_Unauthorized();
 
-    error IDAOStorage_AddrAlreadyAdded();
-    error IDAOStorage_AddrNotFound();
+    error IDAOStorage_WriterAlreadyAdded();
+    error IDAOStorage_WriterNotFound();
 }
